@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include "jenkins"
-
 git_branch = 'master'
 job_name = "check-chef-repo-#{git_branch}"
 
