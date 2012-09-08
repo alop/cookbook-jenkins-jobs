@@ -20,7 +20,7 @@
 git_branch = 'master'
 job_name = "check-chef-repo-#{git_branch}"
 
-job_config = File.join(node[:jenkins][:node][:home], "#{job_name}-config.xml")
+job_config = File.join(node[:jenkins][:server][:home], "#{job_name}-config.xml")
 
 jenkins_job job_name do
   action :nothing
