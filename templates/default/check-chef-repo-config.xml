@@ -49,7 +49,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>spiceweasel infrastructure.yml --dry-run</command>
+      <command>spiceweasel infrastructure.yml --dryrun</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
