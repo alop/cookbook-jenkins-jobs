@@ -25,3 +25,23 @@ execute "install_pip" do
     command "easy_install pip"
     user "root"
 end
+
+# Create the various test job configurations...
+test_jobs = [ "test-subs-commands-single-node" ]
+
+test_jobs.each do |test_job|
+
+  job_config = File.join(node[:jenkins][:server][:home], "#{test_job}-config.xml")
+
+  jenkins_job test_job do
+    action :nothing
+    config job_config
+  end
+
+  template job_config do
+    source "#{test_job}.xml"
+    variables :job_name => job_name 
+    notifies :update, resources(:jenkins_job => job_name), :immediately
+    notifies :build, resources(:jenkins_job => job_name), :immediately
+  end
+end
