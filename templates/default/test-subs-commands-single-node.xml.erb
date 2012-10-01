@@ -10,7 +10,7 @@
       <hudson.plugins.git.UserRemoteConfig>
         <name></name>
         <refspec></refspec>
-        <url>git@github.com:att-cloud/substructure.git</url>
+        <url><%= @git_root %>/<%= @repo %>.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -35,9 +35,9 @@
     <reference></reference>
     <excludedRegions></excludedRegions>
     <excludedUsers></excludedUsers>
-    <gitConfigName></gitConfigName>
-    <gitConfigEmail></gitConfigEmail>
-    <skipTag>true</skipTag>
+    <gitConfigName><%= @git_user %></gitConfigName>
+    <gitConfigEmail><%= @git_email %></gitConfigEmail>
+    <skipTag>false</skipTag>
     <includedRegions></includedRegions>
     <scmName></scmName>
   </scm>

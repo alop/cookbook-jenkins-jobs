@@ -17,10 +17,14 @@
 # limitations under the License.
 #
 
-git_branch = 'master'
-job_name = "check-chef-repo-#{git_branch}"
+# A few things we use in all of the Jenkins job XML config templates...
+git_root = node[:jenkins_jobs][:git_root]
+git_user = node[:jenkins_jobs][:git_user]
+git_email = node[:jenkins_jobs][:git_email]
 
-job_config = File.join(node[:jenkins][:server][:home], "#{job_name}-config.xml")
+# The main check of the chef-repo
+job_name = "check-chef-repo"
+job_config = File.join(node[:jenkins][:server][:home], "#{job_name}.xml")
 
 jenkins_job job_name do
   action :nothing
@@ -28,16 +32,16 @@ jenkins_job job_name do
 end
 
 template job_config do
-  source "check-chef-repo-config.xml"
-  variables :job_name => job_name, :branch => git_branch, :node => node[:fqdn]
+  source "check-chef-repo.xml.erb"
+  variables :git_root => git_root,
+            :git_user => git_user,
+            :git_email => git_email
   notifies :update, resources(:jenkins_job => job_name), :immediately
   notifies :build, resources(:jenkins_job => job_name), :immediately
 end
 
-# Add ChefSpec testing jobs.
-# TODO(jaypipes): If we ever want to upstream this cookbook, this
-# list of cookbooks should be made into a node attribute
-chef_spec_repos = [ "cookbook-networking", "cookbook-sol" ]
+# Add ChefSpec testing jobs
+chef_spec_repos = node[:jenkins_jobs][:check_chef_spec_repos]
 
 chef_spec_repos.each do |repo|
   test_job = "check-chef-spec-#{repo}")
@@ -50,7 +54,10 @@ chef_spec_repos.each do |repo|
 
   template job_config do
     source "check-chef-spec-cookbook.xml.erb"
-    variables :repo => repo
+    variables :repo => repo,
+              :git_root => git_root,
+              :git_user => git_user,
+              :git_email => git_email
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
   end
