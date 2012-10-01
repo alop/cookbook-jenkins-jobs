@@ -33,3 +33,26 @@ template job_config do
   notifies :update, resources(:jenkins_job => job_name), :immediately
   notifies :build, resources(:jenkins_job => job_name), :immediately
 end
+
+# Add ChefSpec testing jobs.
+# TODO(jaypipes): If we ever want to upstream this cookbook, this
+# list of cookbooks should be made into a node attribute
+chef_spec_repos = [ "cookbook-networking", "cookbook-sol" ]
+
+chef_spec_repos.each do |repo|
+  test_job = "check-chef-spec-#{repo}")
+  job_config = File.join(node[:jenkins][:server][:home], "#{test_job}-config.xml")
+
+  jenkins_job test_job do
+    action :nothing
+    config job_config
+  end
+
+  template job_config do
+    source "check-chef-spec-cookbook.xml.erb"
+    variables :repo => repo
+    notifies :update, resources(:jenkins_job => test_job), :immediately
+    notifies :build, resources(:jenkins_job => test_job), :immediately
+  end
+  
+end

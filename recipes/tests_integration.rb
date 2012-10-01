@@ -40,8 +40,8 @@ test_jobs.each do |test_job|
 
   template job_config do
     source "#{test_job}.xml"
-    variables :job_name => job_name 
-    notifies :update, resources(:jenkins_job => job_name), :immediately
-    notifies :build, resources(:jenkins_job => job_name), :immediately
+    variables :job_name => test_job
+    notifies :update, resources(:jenkins_job => test_job), :immediately
+    notifies :build, resources(:jenkins_job => test_job), :immediately
   end
 end
