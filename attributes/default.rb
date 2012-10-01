@@ -18,3 +18,34 @@
 #
 
 include_attribute "jenkins"
+
+# The git user to use
+# This attribute goes into the various Jenkins job
+# XML templates in the following element:
+# <project>
+#  <scm class="hudson.plugins.git.GitSCM">
+#   <gitConfigName>$USER</gitConfigName>
+#  </scm>
+# </project>
+default[:jenkins_jobs][:git_user] = "git"
+
+# The email address for the Git user
+# This attribute goes into the various Jenkins job
+# XML templates in the following element:
+# <project>
+#  <scm class="hudson.plugins.git.GitSCM">
+#   <gitConfigEmail>$EMAIL</gitConfigEmail>
+#  </scm>
+# </project>
+default[:jenkins_jobs][:git_email] = "git@example.com"
+
+default[:jenkins_jobs][:git_root] = "git@github.com:example"
+
+# List repo names that should get a Jenkins chef spec check job created
+# for them. The node{:jenkins_jobs][:git_root] is prepended to the repo
+# names when writing the configuration files. So, for example, if you
+# set node[:jenkins_jobs][:git_root] = "git@github.com:myorg" and
+# node[:jenkins_jobs][:check_chef_spec_repos] = ["repo1", "repo2"] then
+# two Jenkins jobs will be created for cookbooks living at github.com/myorg/repo1
+# and github.com/myorg/repo2
+default[:jenkins_jobs][:check_chef_spec_repos] = []

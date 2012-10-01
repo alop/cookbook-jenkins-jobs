@@ -4,6 +4,16 @@ Description
 Installs Jenkins CI jobs using the chef-jenkins `jenkins_job` provider in the
 upstream Jenkins cookbook.
 
+Attributes
+==========
+
+* `default[:jenkins_jobs][:git_root]` - The root Git location for things tested by Jenkins
+* `default[:jenkins_jobs][:git_user]` - The Git user name to use when checking out a repo
+* `default[:jenkins_jobs][:git_email]` - The email address to use for the Git user
+* `default[:jenkins_jobs][:check_chef_spec_repos]` - A list of repo names
+  (appended to `node[:jenkins_jobs][:git_root`) that the checks recipe will automatically
+  create Jenkins jobs for that runs ChefSpec tests
+
 Templates
 =========
 
@@ -19,7 +29,7 @@ to the role `run_list` for the CI server you use.
 
 For example:
 
- knife node run_list add <MY_CI_NODE> jenkins_jobs::checks
+    knife node run_list add <MY_CI_NODE> jenkins_jobs::checks
 
 License and Author
 ==================
