@@ -44,7 +44,7 @@ end
 chef_spec_repos = node[:jenkins_jobs][:check_chef_spec_repos]
 
 chef_spec_repos.each do |repo|
-  test_job = "check-chef-spec-#{repo}")
+  test_job = "check-chef-spec-#{repo}"
   job_config = File.join(node[:jenkins][:server][:home], "#{test_job}-config.xml")
 
   jenkins_job test_job do
