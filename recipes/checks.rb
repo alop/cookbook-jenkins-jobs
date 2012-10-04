@@ -55,6 +55,7 @@ chef_spec_repos.each do |repo|
   template job_config do
     source "check-chef-spec-cookbook.xml.erb"
     variables :repo => repo,
+              :repo_spec_name => repo.sub(/cookbook-/, ""),
               :git_root => git_root,
               :git_user => git_user,
               :git_email => git_email
