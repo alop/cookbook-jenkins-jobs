@@ -31,7 +31,7 @@
     <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
     <gitTool>Default</gitTool>
     <submoduleCfg class="list"/>
-    <relativeTargetDir><%= @repo_spec_name %></relativeTargetDir>
+    <relativeTargetDir></relativeTargetDir>
     <reference></reference>
     <excludedRegions></excludedRegions>
     <excludedUsers></excludedUsers>
@@ -57,13 +57,14 @@
 # RVM requires bash.  Execute runs with jenkin&apos;s default shell.
 bash -c &quot;
   source ${HOME}/.rvm/scripts/rvm
+  rvm use ruby-1.9.3
   rvm gemset create <%= @repo_spec_name %>
   rvm gemset use <%= @repo_spec_name %>
 
-  cd <%= @repo_spec_name %>/
   bundle
   librarian-chef install
-  rspec
+  ln -s ../ cookbooks/<%= @repo_spec_name %>
+  rspec cookbooks/<%= @repo_spec_name %>/spec/
 &quot;
       </command>
     </hudson.tasks.Shell>
