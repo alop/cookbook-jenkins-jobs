@@ -64,6 +64,8 @@ bash -c &quot;
   bundle
   librarian-chef install
   ln -s ../ cookbooks/<%= @repo_spec_name %>
+  foodcritic --epic-fail any cookbooks/<%= @repo_spec_name %>/
+  [ $? -ne 0 ] && exit 1
   rspec cookbooks/<%= @repo_spec_name %>/spec/
 &quot;
       </command>
