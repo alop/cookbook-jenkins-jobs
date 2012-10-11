@@ -54,23 +54,23 @@
   <builders>
     <hudson.tasks.Shell>
       <command>
-# RVM requires bash.  Execute runs with jenkin&apos;s default shell.
-bash -c &quot;
-  source ${HOME}/.rvm/scripts/rvm
-  rvm use ruby-1.9.3
-  rvm gemset create <%= @repo_spec_name %>
-  rvm gemset use <%= @repo_spec_name %>
-
-  bundle
-  librarian-chef install
-  ln -s ../ cookbooks/<%= @repo_spec_name %>
-  foodcritic --epic-fail any cookbooks/<%= @repo_spec_name %>/
-  [ $? -ne 0 ] &amp;&amp; exit 1
-  rspec cookbooks/<%= @repo_spec_name %>/spec/
-&quot;
+        bundle install
+        bundle exec librarian-chef install
+        ln -s ../ cookbooks/<%= @repo_spec_name %>
+        bundle exec foodcritic --epic-fail any cookbooks/<%= @repo_spec_name %>/
+        bundle exec rspec cookbooks/<%= @repo_spec_name %>/spec/
       </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers/>
+    <ruby-proxy-object>
+      <ruby-object ruby-class="Jenkins::Plugin::Proxies::BuildWrapper" pluginid="rvm">
+        <pluginid pluginid="rvm" ruby-class="String">rvm</pluginid>
+        <object ruby-class="RvmWrapper" pluginid="rvm">
+          <impl pluginid="rvm" ruby-class="String">ruby-1.9.3@<%= @repo_spec_name %></impl>
+        </object>
+      </ruby-object>
+    </ruby-proxy-object>
+  </buildWrappers>
 </project>
