@@ -33,7 +33,8 @@ end
 
 template job_config do
   source "check-chef-repo.xml.erb"
-  variables :git_root => git_root,
+  variables :repo => node[:chef_repo_name],
+            :git_root => git_root,
             :git_user => git_user,
             :git_email => git_email
   notifies :update, resources(:jenkins_job => job_name), :immediately
@@ -62,5 +63,5 @@ chef_spec_repos.each do |repo|
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
   end
-  
+
 end
