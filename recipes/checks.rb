@@ -37,7 +37,7 @@ template job_config do
   variables :repo => repo,
             :git_root => git_root,
             :git_user => git_user,
-            :git_email => git_email
+            :git_email => git_email,
             :git_url => "#{git_root}/#{repo}.git"
   notifies :update, resources(:jenkins_job => job_name), :immediately
   notifies :build, resources(:jenkins_job => job_name), :immediately
@@ -61,7 +61,7 @@ chef_spec_repos.each do |repo|
               :repo_spec_name => repo.sub(/cookbook-/, ""),
               :git_root => git_root,
               :git_user => git_user,
-              :git_email => git_email
+              :git_email => git_email,
               :git_url => "#{git_root}/#{repo}.git"
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
