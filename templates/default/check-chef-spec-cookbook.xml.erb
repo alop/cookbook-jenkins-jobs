@@ -81,7 +81,7 @@
       <ruby-object ruby-class="Jenkins::Plugin::Proxies::BuildWrapper" pluginid="rvm">
         <pluginid pluginid="rvm" ruby-class="String">rvm</pluginid>
         <object ruby-class="RvmWrapper" pluginid="rvm">
-          <impl pluginid="rvm" ruby-class="String">ruby-1.9.3@<%= @repo_spec_name %></impl>
+          <impl pluginid="rvm" ruby-class="String"><%= @rvm_ruby %></impl>
         </object>
       </ruby-object>
     </ruby-proxy-object>

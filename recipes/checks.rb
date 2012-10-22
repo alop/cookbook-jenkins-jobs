@@ -22,6 +22,8 @@ git_root = node[:jenkins_jobs][:git_root]
 git_user = node[:jenkins_jobs][:git_user]
 git_email = node[:jenkins_jobs][:git_email]
 
+rvm_ruby = default[:jenkins_jobs][:rvm_ruby] = "ruby-1.9.3"
+
 # The main check of the chef-repo
 job_name = "check-chef-repo"
 job_config = File.join(node[:jenkins][:server][:home], "#{job_name}.xml")
@@ -38,7 +40,8 @@ template job_config do
             :git_root => git_root,
             :git_user => git_user,
             :git_email => git_email,
-            :git_url => "#{git_root}/#{repo}.git"
+            :git_url => "#{git_root}/#{repo}.git",
+            :rvm_ruby => "#{rvm_ruby}@#{repo}"
   notifies :update, resources(:jenkins_job => job_name), :immediately
   notifies :build, resources(:jenkins_job => job_name), :immediately
 end
@@ -62,7 +65,8 @@ chef_spec_repos.each do |repo|
               :git_root => git_root,
               :git_user => git_user,
               :git_email => git_email,
-              :git_url => "#{git_root}/#{repo}.git"
+              :git_url => "#{git_root}/#{repo}.git",
+              :rvm_ruby => "#{rvm_ruby}@#{repo}"
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
   end
