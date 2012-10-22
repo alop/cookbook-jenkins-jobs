@@ -54,11 +54,11 @@
   <builders>
     <hudson.tasks.Shell>
       <command>
-        bundle install
-        bundle exec librarian-chef install
+        bundle
+        librarian-chef install
         ln -s ../ cookbooks/<%= @repo_spec_name %>
-        bundle exec foodcritic --epic-fail any cookbooks/<%= @repo_spec_name %>/
-        bundle exec rspec cookbooks/<%= @repo_spec_name %>/spec/
+        foodcritic --epic-fail any cookbooks/<%= @repo_spec_name %>/
+        rspec cookbooks/<%= @repo_spec_name %>/spec/
       </command>
     </hudson.tasks.Shell>
   </builders>

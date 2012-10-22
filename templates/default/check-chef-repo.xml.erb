@@ -53,9 +53,10 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>bundle
-
-bundle exec spiceweasel --dryrun infrastructure.yml</command>
+      <command>
+        bundle
+        spiceweasel --dryrun infrastructure.yml
+      </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
