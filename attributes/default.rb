@@ -41,6 +41,10 @@ default[:jenkins_jobs][:git_email] = "git@example.com"
 
 default[:jenkins_jobs][:git_root] = "git@github.com:example"
 
+# The default ruby version when running Jenkins jobs
+# Used by the RVM plugin
+default[:jenkins_jobs][:rvm_ruby] = "ruby-1.9.3"
+
 # List repo names that should get a Jenkins chef spec check job created
 # for them. The node{:jenkins_jobs][:git_root] is prepended to the repo
 # names when writing the configuration files. So, for example, if you

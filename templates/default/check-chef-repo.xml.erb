@@ -53,9 +53,10 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>bundle
-
-bundle exec spiceweasel --dryrun infrastructure.yml</command>
+      <command>
+        bundle
+        spiceweasel --dryrun infrastructure.yml
+      </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
@@ -64,7 +65,7 @@ bundle exec spiceweasel --dryrun infrastructure.yml</command>
       <ruby-object ruby-class="Jenkins::Plugin::Proxies::BuildWrapper" pluginid="rvm">
         <pluginid pluginid="rvm" ruby-class="String">rvm</pluginid>
         <object ruby-class="RvmWrapper" pluginid="rvm">
-          <impl pluginid="rvm" ruby-class="String">1.9.3</impl>
+          <impl pluginid="rvm" ruby-class="String"><%= @rvm_ruby %></impl>
         </object>
       </ruby-object>
     </ruby-proxy-object>
