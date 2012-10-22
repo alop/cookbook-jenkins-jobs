@@ -22,7 +22,7 @@ git_root = node[:jenkins_jobs][:git_root]
 git_user = node[:jenkins_jobs][:git_user]
 git_email = node[:jenkins_jobs][:git_email]
 
-rvm_ruby = default[:jenkins_jobs][:rvm_ruby] = "ruby-1.9.3"
+rvm_ruby = node[:jenkins_jobs][:rvm_ruby]
 
 # The main check of the chef-repo
 job_name = "check-chef-repo"
