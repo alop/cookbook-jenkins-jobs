@@ -49,3 +49,5 @@ default[:jenkins_jobs][:git_root] = "git@github.com:example"
 # two Jenkins jobs will be created for cookbooks living at github.com/myorg/repo1
 # and github.com/myorg/repo2
 default[:jenkins_jobs][:check_chef_spec_repos] = []
+
+default[:chef_repo_name] = "chef-repo"
