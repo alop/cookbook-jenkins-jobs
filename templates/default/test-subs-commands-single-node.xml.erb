@@ -62,7 +62,7 @@ EXPECTED_NB_OUTPUT=&quot;ipmitool -H 172.16.2.9 -U root -P root chassis bootdev 
 EXPECTED_CP_OUTPUT=&quot;ipmitool -H 172.16.2.9 -U root -P root user set password 2 secret&quot;
 
 echo &quot;Validating output of subs node power netboot\n&quot;
-NB_OUTPUT=`./subs node --name=c5r1.dal2 power --user=$IPMI_USER --password=$IPMI_PASS --dry-run netboot`
+NB_OUTPUT=`./subs node --name=o5r1.dal2 power --user=$IPMI_USER --password=$IPMI_PASS --dry-run netboot`
 
 if [[ &quot;$NB_OUTPUT&quot; != &quot;$EXPECTED_NB_OUTPUT&quot; ]]; then
   echo &quot;Expected $EXPECTED_NB_OUTPUT\nGot: $NB_OUTPUT\nFAIL.\n&quot;
@@ -72,7 +72,7 @@ else
 fi
 
 echo &quot;Validating output of subs node power change_password&quot;
-CP_OUTPUT=`./subs node --name=c5r1.dal2 power --user=$IPMI_USER --password=$IPMI_PASS --dry-run change_password --new-password=$NEW_IPMI_PASS`
+CP_OUTPUT=`./subs node --name=o5r1.dal2 power --user=$IPMI_USER --password=$IPMI_PASS --dry-run change_password --new-password=$NEW_IPMI_PASS`
 
 if [[ &quot;$CP_OUTPUT&quot; != &quot;$EXPECTED_CP_OUTPUT&quot; ]]; then
   echo &quot;Expected $EXPECTED_CP_OUTPUT\nGot: $CP_OUTPUT\nFAIL.\n&quot;

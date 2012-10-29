@@ -43,9 +43,12 @@ test_jobs.each do |test_job|
     config job_config
   end
 
+  git_repo = "substructure"
+
   template job_config do
     source "#{test_job}.xml.erb"
     variables :job_name => test_job,
+              :repo => git_repo,
               :git_root => git_root,
               :git_user => git_user,
               :git_email => git_email
