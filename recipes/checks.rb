@@ -18,15 +18,15 @@
 #
 
 # A few things we use in all of the Jenkins job XML config templates...
-git_root = node[:jenkins_jobs][:git_root]
-git_user = node[:jenkins_jobs][:git_user]
-git_email = node[:jenkins_jobs][:git_email]
+git_root = node["jenkins_jobs"]["git_root"]
+git_user = node["jenkins_jobs"]["git_user"]
+git_email = node["jenkins_jobs"]["git_email"]
 
-rvm_ruby = node[:jenkins_jobs][:rvm_ruby]
+rvm_ruby = node["jenkins_jobs"]["rvm_ruby"]
 
 # The main check of the chef-repo
 job_name = "check-chef-repo"
-job_config = File.join(node[:jenkins][:server][:home], "#{job_name}.xml")
+job_config = File.join(node["jenkins"]["server"]["home"], "#{job_name}.xml")
 
 jenkins_job job_name do
   action :nothing
@@ -34,11 +34,9 @@ jenkins_job job_name do
 end
 
 template job_config do
-  repo = node[:chef_repo_name]
+  repo = node["chef_repo_name"]
   source "check-chef-repo.xml.erb"
-  variables :repo => repo,
-            :git_root => git_root,
-            :git_user => git_user,
+  variables :git_user => git_user,
             :git_email => git_email,
             :git_url => "#{git_root}/#{repo}.git",
             :rvm_ruby => "#{rvm_ruby}@#{repo}"
@@ -47,11 +45,11 @@ template job_config do
 end
 
 # Add ChefSpec testing jobs
-chef_spec_repos = node[:jenkins_jobs][:check_chef_spec_repos]
+chef_spec_repos = node["jenkins_jobs"]["check_chef_spec_repos"]
 
 chef_spec_repos.each do |repo|
   test_job = "check-chef-spec-#{repo}"
-  job_config = File.join(node[:jenkins][:server][:home], "#{test_job}-config.xml")
+  job_config = File.join(node["jenkins"]["server"]["home"], "#{test_job}-config.xml")
 
   jenkins_job test_job do
     action :nothing

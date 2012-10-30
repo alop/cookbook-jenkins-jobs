@@ -27,16 +27,16 @@ execute "install_pip" do
 end
 
 # A few things we use in all of the Jenkins job XML config templates...
-git_root = node[:jenkins_jobs][:git_root]
-git_user = node[:jenkins_jobs][:git_user]
-git_email = node[:jenkins_jobs][:git_email]
+git_root = node["jenkins_jobs"]["git_root"]
+git_user = node["jenkins_jobs"]["git_user"]
+git_email = node["jenkins_jobs"]["git_email"]
 
 # Create the various test job configurations...
 test_jobs = [ "test-subs-commands-single-node" ]
 
 test_jobs.each do |test_job|
 
-  job_config = File.join(node[:jenkins][:server][:home], "#{test_job}-config.xml")
+  job_config = File.join(node["jenkins"]["server"]["home"], "#{test_job}-config.xml")
 
   jenkins_job test_job do
     action :nothing

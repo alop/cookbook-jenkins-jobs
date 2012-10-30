@@ -27,7 +27,7 @@ include_attribute "jenkins"
 #   <gitConfigName>$USER</gitConfigName>
 #  </scm>
 # </project>
-default[:jenkins_jobs][:git_user] = "git"
+default["jenkins_jobs"]["git_user" = "git"
 
 # The email address for the Git user
 # This attribute goes into the various Jenkins job
@@ -37,13 +37,13 @@ default[:jenkins_jobs][:git_user] = "git"
 #   <gitConfigEmail>$EMAIL</gitConfigEmail>
 #  </scm>
 # </project>
-default[:jenkins_jobs][:git_email] = "git@example.com"
+default["jenkins_jobs"]["git_email"] = "git@example.com"
 
-default[:jenkins_jobs][:git_root] = "git@github.com:example"
+default["jenkins_jobs"]["git_root"] = "git@github.com:example"
 
 # The default ruby version when running Jenkins jobs
 # Used by the RVM plugin
-default[:jenkins_jobs][:rvm_ruby] = "ruby-1.9.3"
+default["jenkins_jobs"]["rvm_ruby"] = "ruby-1.9.3"
 
 # List repo names that should get a Jenkins chef spec check job created
 # for them. The node{:jenkins_jobs][:git_root] is prepended to the repo
@@ -52,6 +52,6 @@ default[:jenkins_jobs][:rvm_ruby] = "ruby-1.9.3"
 # node[:jenkins_jobs][:check_chef_spec_repos] = ["repo1", "repo2"] then
 # two Jenkins jobs will be created for cookbooks living at github.com/myorg/repo1
 # and github.com/myorg/repo2
-default[:jenkins_jobs][:check_chef_spec_repos] = []
+default["jenkins_jobs"]["check_chef_spec_repos"] = []
 
-default[:chef_repo_name] = "chef-repo"
+default["chef_repo_name"] = "chef-repo"
