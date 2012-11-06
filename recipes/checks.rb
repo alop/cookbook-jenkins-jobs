@@ -21,6 +21,7 @@
 git_root = node["jenkins_jobs"]["git_root"]
 git_user = node["jenkins_jobs"]["git_user"]
 git_email = node["jenkins_jobs"]["git_email"]
+git_account = node["jenkins_jobs"]["git_account"]
 
 rvm_ruby = node["jenkins_jobs"]["rvm_ruby"]
 
@@ -38,8 +39,8 @@ template job_config do
   source "check-chef-repo.xml.erb"
   variables :git_user => git_user,
             :git_email => git_email,
-            :git_url => "#{git_root}/#{repo}.git",
-            :rvm_ruby => "#{rvm_ruby}@#{repo}"
+            :git_url => "#{git_root}:#{git_account}/#{repo}.git",
+            :rvm_ruby => "#{rvm_ruby}@#{git_account}-#{repo}"
   notifies :update, resources(:jenkins_job => job_name), :immediately
   notifies :build, resources(:jenkins_job => job_name), :immediately
 end
@@ -47,7 +48,10 @@ end
 # Add ChefSpec testing jobs
 chef_spec_repos = node["jenkins_jobs"]["check_chef_spec_repos"]
 
-chef_spec_repos.each do |repo|
+chef_spec_repos.each do |chef_spec_repo|
+  git_account = chef_spec_repo["git_account"]
+  repo = chef_spec_repo["repo_name"]
+
   test_job = "check-chef-spec-#{repo}"
   job_config = File.join(node["jenkins"]["server"]["home"], "#{test_job}-config.xml")
 
@@ -60,11 +64,10 @@ chef_spec_repos.each do |repo|
     source "check-chef-spec-cookbook.xml.erb"
     variables :repo => repo,
               :repo_spec_name => repo.sub(/cookbook-/, ""),
-              :git_root => git_root,
               :git_user => git_user,
               :git_email => git_email,
-              :git_url => "#{git_root}/#{repo}.git",
-              :rvm_ruby => "#{rvm_ruby}@#{repo}"
+              :git_url => "#{git_root}:#{git_account}/#{repo}.git",
+              :rvm_ruby => "#{rvm_ruby}@#{git_account}-#{repo}"
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
   end

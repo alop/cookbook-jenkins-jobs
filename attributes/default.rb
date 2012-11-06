@@ -38,8 +38,8 @@ default["jenkins_jobs"]["git_user" = "git"
 #  </scm>
 # </project>
 default["jenkins_jobs"]["git_email"] = "git@example.com"
-
-default["jenkins_jobs"]["git_root"] = "git@github.com:example"
+default["jenkins_jobs"]["git_root"] = "git@github.com"
+default["jenkins_jobs"]["git_account"] = "att-cloud"
 
 # The default ruby version when running Jenkins jobs
 # Used by the RVM plugin
