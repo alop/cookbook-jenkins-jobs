@@ -30,6 +30,7 @@ end
 git_root = node["jenkins_jobs"]["git_root"]
 git_user = node["jenkins_jobs"]["git_user"]
 git_email = node["jenkins_jobs"]["git_email"]
+git_account = node["jenkins_jobs"]["git_account"]
 
 # Create the various test job configurations...
 test_jobs = [ "test-subs-commands-single-node" ]
@@ -52,6 +53,7 @@ test_jobs.each do |test_job|
               :git_root => git_root,
               :git_user => git_user,
               :git_email => git_email
+              :git_url => "#{git_root}:#{git_account}/#{repo}.git",
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
   end
