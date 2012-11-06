@@ -48,8 +48,9 @@ end
 # Add ChefSpec testing jobs
 chef_spec_repos = node["jenkins_jobs"]["check_chef_spec_repos"]
 
-chef_spec_repos.each do |el|
-  git_account, repo = el.split(":")
+chef_spec_repos.each do |chef_spec_repo|
+  git_account = chef_spec_repo["git_account"]
+  repo = chef_spec_repo["repo_name"]
 
   test_job = "check-chef-spec-#{repo}"
   job_config = File.join(node["jenkins"]["server"]["home"], "#{test_job}-config.xml")
