@@ -27,7 +27,7 @@ include_attribute "jenkins"
 #   <gitConfigName>$USER</gitConfigName>
 #  </scm>
 # </project>
-default["jenkins_jobs"]["git_user" = "git"
+default["jenkins_jobs"]["git_user"] = "git"
 
 # The email address for the Git user
 # This attribute goes into the various Jenkins job

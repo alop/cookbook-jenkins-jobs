@@ -52,8 +52,8 @@ test_jobs.each do |test_job|
               :repo => git_repo,
               :git_root => git_root,
               :git_user => git_user,
-              :git_email => git_email
-              :git_url => "#{git_root}:#{git_account}/#{repo}.git",
+              :git_email => git_email,
+              :git_url => "#{git_root}:#{git_account}/#{git_repo}.git"
     notifies :update, resources(:jenkins_job => test_job), :immediately
     notifies :build, resources(:jenkins_job => test_job), :immediately
   end
