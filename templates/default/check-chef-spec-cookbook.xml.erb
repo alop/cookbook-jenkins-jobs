@@ -57,7 +57,7 @@
         bundle
         librarian-chef install
         ln -s ../ cookbooks/<%= @repo_spec_name %>
-        foodcritic --epic-fail any cookbooks/<%= @repo_spec_name %>/
+        foodcritic -f any -f "~FC023" cookbooks/<%= @repo_spec_name %>/
         rspec cookbooks/<%= @repo_spec_name %>/spec/
       </command>
     </hudson.tasks.Shell>
