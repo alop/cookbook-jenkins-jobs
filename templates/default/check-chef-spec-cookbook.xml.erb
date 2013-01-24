@@ -54,11 +54,15 @@
   <builders>
     <hudson.tasks.Shell>
       <command>
-        bundle
-        librarian-chef install
-        ln -s ../ cookbooks/<%= @repo_spec_name %>
-        foodcritic -f any -f "~FC003" -f "~FC023" cookbooks/<%= @repo_spec_name %>/
-        rspec cookbooks/<%= @repo_spec_name %>/spec/
+        if [ -f ./run_tests.bash ]; then
+          ./run_tests.bash
+        else
+          bundle
+          librarian-chef install
+          ln -s ../ cookbooks/<%= @repo_spec_name %>
+          foodcritic -f any -f "~FC003" -f "~FC023" cookbooks/<%= @repo_spec_name %>/
+          rspec cookbooks/<%= @repo_spec_name %>/spec/
+        fi
       </command>
     </hudson.tasks.Shell>
   </builders>
